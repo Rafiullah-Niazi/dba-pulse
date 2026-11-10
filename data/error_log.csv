@@ -1,0 +1,6 @@
+timestamp,code,message
+2026-11-06 22:15:00,ORA-00060,Deadlock detected
+2026-11-08 14:05:00,ORA-03113,End-of-file on communication channel
+2026-11-10 03:12:00,ORA-01653,Unable to extend table in tablespace USERS_DATA
+2026-11-10 05:40:00,ORA-00060,Deadlock detected
+2026-11-10 06:02:00,ORA-03113,End-of-file on communication channel
