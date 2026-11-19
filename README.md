@@ -42,6 +42,17 @@ flowchart LR
 
 `main.py` calls each module in order and passes the result of one step to the next as plain Python data. Only `ai_summary.py` talks to the internet, and if the AI call fails a fallback text is used so the report is still produced.
 
+
+## Requirements and Planning\
+Full requirements, feature and module breakdown, priorities and task list: [docs/REQUIREMENTS.md]\(docs/REQUIREMENTS.md)\
+\
+\| Priority | Features |\
+\|----------|----------|\
+\| Must Have | Collector, rules + config, AI summary (with fallback), HTML report, main.py pipeline |\
+\| Should Have | History and 7-day trend, storage chart, PDF export, tests, daily scheduling |\
+\| Could Have | Email or Telegram alerts, live Oracle connection, web page for past reports |
+
+
 ## Modules
 
 | Module | File | Responsibility |
