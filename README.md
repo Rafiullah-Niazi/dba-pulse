@@ -26,17 +26,17 @@ Phase 1, Day 3: project structure and architecture are in place. The module file
 
 ```mermaid
 flowchart LR
-    A[data/*.csv] --> B[collector.py]
+    A["data/*.csv"] --> B[collector.py]
     B --> C[rules.py]
     CFG[config.yaml] --> C
     C --> D[history.py]
     C --> E[ai_summary.py]
-    KEY[.env API key] --> E
+    KEY[".env API key"] --> E
     D --> F[charts.py]
     C --> G[report.py]
     E --> G
     F --> G
-    G --> H[output/ HTML + PDF]
+    G --> H["output/ HTML + PDF"]
     M[main.py] -.runs each step.-> B
 ```
 
