@@ -11,7 +11,7 @@ Built as part of the UNAI TECH Virtual Internship 2026 (AI & Automation).
 | Step | Module | Board tasks | Status |
 |------|--------|-------------|--------|
 | 1 | Setup, repository, sample data | T1 to T3 | Done |
-| 2 | `collector.py` | T4 | In progress |
+| 2 | `collector.py` | T4 | Done |
 | 3 | `rules.py` and tests | T5, T6 | Planned |
 | 4 | `history.py` | T7 | Planned |
 | 5 | `ai_summary.py` | T8, T9 | Planned |
@@ -111,8 +111,11 @@ Run the commands from the project root. To use the AI summary later, copy `.env.
 
 
 ## How to run
-python src/collector.py
-python -m unittest discover tests -v
+python main.py                              # run the full pipeline
+python src/collector.py                     # collector only
+python src/analyzer.py                      # analyzer only
+python -m unittest discover -s tests -p "test_*.py" -v   # run tests
+
 
 ## Status
 - Data Collector: Done (Day 5)
