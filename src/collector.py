@@ -11,7 +11,7 @@ The next module (analyzer / AI summary) will read that JSON file.
 Run it:
     python src/collector.py
 """
-
+from datetime import datetime
 import csv
 import json
 from datetime import datetime
@@ -220,6 +220,8 @@ def collect_all(data_dir=DATA_DIR):
             result[key] = None  # keep going, report the problem at the end
 
     result["problems"] = problems
+
+    result["collected_at"] = datetime.now().isoformat(timespec="seconds")
     return result
 
 
