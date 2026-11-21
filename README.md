@@ -109,6 +109,17 @@ python scripts/make_sample_data.py
 
 Run the commands from the project root. To use the AI summary later, copy `.env.example` to `.env` and add your own Gemini API key. The `.env` file is ignored by Git and must never be uploaded.
 
+
+## How to run
+python src/collector.py
+python -m unittest discover tests -v
+
+## Status
+- Data Collector: Done (Day 5)
+- Analyzer: Next (Day 6)
+
+
+
 ## Tools
 
 Python, SQLite, Gemini API (free tier), Jinja2, matplotlib, ReportLab. Everything used in this project is free.
