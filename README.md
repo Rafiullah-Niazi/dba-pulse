@@ -12,7 +12,7 @@ Built as part of the UNAI TECH Virtual Internship 2026 (AI & Automation).
 |------|--------|-------------|--------|
 | 1  | Setup, repository, sample data   | T1 to T3   | Done   |
 | 2  | `collector.py` | T4    | Done |
-| 3    | `analyzer.py` (risk rules) and tists | T5, T6        | Done (Day 6) |
+| 3    | `analyzer.py` (risk rules) and tests | T5, T6        | Done (Day 6) |
 | 4 | `history.py` | T7 | Planned |
 | 5 | `ai_summary.py` | T8, T9 | Planned |
 | 6 | Report template and `charts.py` | T10, T11 | Planned |
