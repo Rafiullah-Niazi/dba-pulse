@@ -10,15 +10,16 @@ Built as part of the UNAI TECH Virtual Internship 2026 (AI & Automation).
 
 | Step | Module | Board tasks | Status |
 |------|--------|-------------|--------|
-| 1 | Setup, repository, sample data | T1 to T3 | Done |
-| 2 | `collector.py` | T4 | Done |
-| 3 | `rules.py` and tests | T5, T6 | Planned |
+| 1  | Setup, repository, sample data   | T1 to T3   | Done   |
+| 2  | `collector.py` | T4    | Done |
+| 3    | `analyzer.py` (risk rules) and tists | T5, T6        | Done (Day 6) |
 | 4 | `history.py` | T7 | Planned |
 | 5 | `ai_summary.py` | T8, T9 | Planned |
 | 6 | Report template and `charts.py` | T10, T11 | Planned |
 | 7 | PDF export and `main.py` | T12 | Planned |
 
-Phase 1, Day 3: project structure and architecture are in place. The module files are placeholders until each task is built.
+Phase 1, Day 6: The collector and the analyzer work and are connected by 'main.py'. The other modules are still placeholders until each task is built.
+
 
 ## Architecture
 
@@ -43,6 +44,7 @@ flowchart LR
 `main.py` calls each module in order and passes the result of one step to the next as plain Python data. Only `ai_summary.py` talks to the internet, and if the AI call fails a fallback text is used so the report is still produced.
 
 
+
 ## Requirements and Planning\
 Full requirements, feature and module breakdown, priorities and task list: [docs/REQUIREMENTS.md]\(docs/REQUIREMENTS.md)\
 \
@@ -53,17 +55,20 @@ Full requirements, feature and module breakdown, priorities and task list: [docs
 \| Could Have | Email or Telegram alerts, live Oracle connection, web page for past reports |
 
 
+
 ## Modules
 
 | Module | File | Responsibility |
 |--------|------|----------------|
 | Orchestrator | `main.py` | Runs the pipeline in order and reports errors clearly |
 | Collector | `src/collector.py` | Reads the four data tables and cleans them |
-| Rules engine | `src/rules.py` | Marks each item OK, WARNING or CRITICAL using the thresholds |
+| Analyzer (risk rules) | `src/analyzer.py` | Finds the risk in the collected data, gives each a severity, saves 'data/analysis.json' |
 | History store | `src/history.py` | Saves daily results in SQLite and returns the 7-day trend |
 | AI summary | `src/ai_summary.py` | Calls the Gemini API for a short summary, with fallback text |
 | Chart generator | `src/charts.py` | Draws the storage chart with matplotlib |
 | Report builder | `src/report.py` | Fills the Jinja2 template and exports HTML and PDF |
+
+
 
 ## Folder structure
 
@@ -80,7 +85,7 @@ dba-pulse/
 ├── src/
 │   ├── __init__.py
 │   ├── collector.py
-│   ├── rules.py
+│   ├── analyzer.py
 │   ├── history.py
 │   ├── ai_summary.py
 │   ├── charts.py
@@ -88,13 +93,15 @@ dba-pulse/
 ├── templates/
 │   └── report.html.j2       Jinja2 report template
 ├── tests/
-│   └── test_rules.py
+│   └── test_collector.py
+│    └── test_analyzer.py
 ├── .env.example
 ├── .gitignore
 ├── main.py
 ├── README.md
 └── requirements.txt
 ```
+
 
 ## Setup
 
@@ -110,16 +117,22 @@ python scripts/make_sample_data.py
 Run the commands from the project root. To use the AI summary later, copy `.env.example` to `.env` and add your own Gemini API key. The `.env` file is ignored by Git and must never be uploaded.
 
 
+
 ## How to run
-python main.py                              # run the full pipeline
-python src/collector.py                     # collector only
-python src/analyzer.py                      # analyzer only
-python -m unittest discover -s tests -p "test_*.py" -v   # run tests
+
+```
+python main.py                                           # full pipeline: collector -> analyzer
+python src/collector.py                                  # collector only
+python src/analyzer.py                                   # analyzer only
+python -m unittest discover -s tests -p "test_*.py" -v   # run all tests
+```     
+
 
 
 ## Status
 - Data Collector: Done (Day 5)
-- Analyzer: Next (Day 6)
+- Analyzer: Done (Day 6), connected to the collector through main.py
+- AI summary: Next (Day 7)
 
 
 
