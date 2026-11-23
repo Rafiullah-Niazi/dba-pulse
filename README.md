@@ -6,7 +6,7 @@ DBA-Pulse reads database health data (backup, tablespace, sessions and error log
 
 Built as part of the UNAI TECH Virtual Internship 2026 (AI & Automation).
 
-## Status
+## Current Status (Phase 1, Day 7)
 
 | Step | Module | Board tasks | Status |
 |------|--------|-------------|--------|
@@ -18,7 +18,13 @@ Built as part of the UNAI TECH Virtual Internship 2026 (AI & Automation).
 | 6 | Report template and `charts.py` | T10, T11 | Planned |
 | 7 | PDF export and `main.py` | T12 | Planned |
 
-Phase 1, Day 6: The collector and the analyzer work and are connected by 'main.py'. The other modules are still placeholders until each task is built.
+ 
+ ```markdown
+
+**What works today:** the collector and the analyzer are connected by `main.py`. Running it produces `data/collected_data.json` and `data/analysis.json`. 19 automated tests pass.
+
+**Not built yet:** history tracking, AI summary, HTML/PDF report, charts.
+```
 
 
 ## Architecture
@@ -60,7 +66,7 @@ Full requirements, feature and module breakdown, priorities and task list: [docs
 
 | Module | File | Responsibility |
 |--------|------|----------------|
-| Orchestrator | `main.py` | Runs the pipeline in order and reports errors clearly |
+| Orchestrator | main.py | Runs the pipeline in order and reports errors clearly |
 | Collector | `src/collector.py` | Reads the four data tables and cleans them |
 | Analyzer (risk rules) | `src/analyzer.py` | Finds the risk in the collected data, gives each a severity, saves 'data/analysis.json' |
 | History store | `src/history.py` | Saves daily results in SQLite and returns the 7-day trend |
@@ -120,12 +126,22 @@ Run the commands from the project root. To use the AI summary later, copy `.env.
 
 ## How to run
 
-```
-python main.py                                           # full pipeline: collector -> analyzer
-python src/collector.py                                  # collector only
-python src/analyzer.py                                   # analyzer only
-python -m unittest discover -s tests -p "test_*.py" -v   # run all tests
-```     
+````markdown
+## How to Run
+
+1. Activate the virtual environment:
+   ```
+   venv\Scripts\activate
+   ```
+2. Run the pipeline:
+   ```
+   python main.py
+   ```
+3. Run the tests:
+   ```
+   python -m unittest discover -s tests -p "test_*.py" -v
+   ```
+````    
 
 
 
