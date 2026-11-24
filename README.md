@@ -1,5 +1,5 @@
 
-save  without changes:     # DBA-Pulse
+# DBA-Pulse
 
 Automated daily database health report with an AI-written summary.
 
