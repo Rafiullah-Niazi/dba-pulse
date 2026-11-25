@@ -1,0 +1,60 @@
+{
+  "collected_at": "2026-11-25T15:41:16",
+  "backup": {
+    "total": 7,
+    "successful": 6,
+    "failed": 1,
+    "last_successful_backup": "2026-11-10",
+    "failed_backups": [
+      {
+        "date": "2026-11-07",
+        "type": "",
+        "status": "FAILED"
+      }
+    ]
+  },
+  "tablespace": {
+    "total_tablespaces": 4,
+    "critical": [],
+    "warning": [
+      {
+        "name": "USERS_DATA",
+        "date": "2026-11-10",
+        "used_pct": 91.0,
+        "level": "WARNING"
+      }
+    ],
+    "highest_usage": {
+      "name": "USERS_DATA",
+      "date": "2026-11-10",
+      "used_pct": 91.0,
+      "level": "WARNING"
+    }
+  },
+  "sessions": {
+    "snapshots": 7,
+    "average_active": 153.1,
+    "peak_active": 287,
+    "max_sessions": 300,
+    "peak_pct_of_max": 95.7,
+    "total_blocked": 7,
+    "has_blocking": true
+  },
+  "error_log": {
+    "total_errors": 5,
+    "by_severity": {
+      "HIGH": 5
+    },
+    "by_code": {
+      "ORA-00060": 2,
+      "ORA-03113": 2,
+      "ORA-01653": 1
+    },
+    "error_codes": [
+      "ORA-00060",
+      "ORA-01653",
+      "ORA-03113"
+    ]
+  },
+  "problems": []
+}

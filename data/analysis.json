@@ -1,0 +1,42 @@
+{
+  "analyzed_at": "2026-11-25T15:41:16",
+  "collected_at": "2026-11-25T15:41:16",
+  "overall_status": "CRITICAL",
+  "finding_counts": {
+    "CRITICAL": 1,
+    "HIGH": 4,
+    "MEDIUM": 1
+  },
+  "findings": [
+    {
+      "area": "Backups",
+      "severity": "CRITICAL",
+      "message": "Last successful backup is 15 days old (2026-11-10)."
+    },
+    {
+      "area": "Backups",
+      "severity": "HIGH",
+      "message": "1 backup(s) failed."
+    },
+    {
+      "area": "Sessions",
+      "severity": "HIGH",
+      "message": "Peak sessions reached 95.7% of the limit."
+    },
+    {
+      "area": "Sessions",
+      "severity": "HIGH",
+      "message": "7 blocked sessions recorded."
+    },
+    {
+      "area": "Errors",
+      "severity": "HIGH",
+      "message": "5 HIGH error(s) in the error log."
+    },
+    {
+      "area": "Tablespace",
+      "severity": "MEDIUM",
+      "message": "USERS_DATA is 91.0% full."
+    }
+  ]
+}

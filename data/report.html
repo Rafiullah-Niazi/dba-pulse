@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DBA-Pulse Report</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 30px; color: #2c3e50; }
+  h1 { margin-bottom: 5px; }
+  .meta { color: #7f8c8d; font-size: 14px; }
+  .status { font-size: 22px; font-weight: bold; color: #c0392b; margin: 15px 0; }
+  .cards { display: flex; gap: 15px; margin-bottom: 25px; }
+  .card { flex: 1; background: #f4f6f7; padding: 15px; text-align: center; border-radius: 6px; }
+  .num { font-size: 28px; font-weight: bold; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  th { background: #2c3e50; color: #fff; }
+</style>
+</head>
+<body>
+<h1>DBA-Pulse Daily Health Report</h1>
+<p class="meta">Data collected: 2026-11-25T15:41:16
+ | Analyzed: 2026-11-25T15:41:16</p>
+<div class="status">Overall status: CRITICAL</div>
+<div class="cards"><div class='card' style='border-top:5px solid #c0392b'><div class='num'>1</div><div>CRITICAL</div></div><div class='card' style='border-top:5px solid #e67e22'><div class='num'>4</div><div>HIGH</div></div><div class='card' style='border-top:5px solid #d4ac0d'><div class='num'>1</div><div>MEDIUM</div></div><div class='card' style='border-top:5px solid #27ae60'><div class='num'>0</div><div>LOW</div></div></div>
+<table>
+<tr><th>Severity</th><th>Area</th><th>Finding</th></tr>
+<tr><td style='color:#c0392b;font-weight:bold'>CRITICAL</td><td>Backups</td><td>Last successful backup is 15 days old (2026-11-10).</td></tr>
+<tr><td style='color:#e67e22;font-weight:bold'>HIGH</td><td>Backups</td><td>1 backup(s) failed.</td></tr>
+<tr><td style='color:#e67e22;font-weight:bold'>HIGH</td><td>Sessions</td><td>Peak sessions reached 95.7% of the limit.</td></tr>
+<tr><td style='color:#e67e22;font-weight:bold'>HIGH</td><td>Sessions</td><td>7 blocked sessions recorded.</td></tr>
+<tr><td style='color:#e67e22;font-weight:bold'>HIGH</td><td>Errors</td><td>5 HIGH error(s) in the error log.</td></tr>
+<tr><td style='color:#d4ac0d;font-weight:bold'>MEDIUM</td><td>Tablespace</td><td>USERS_DATA is 91.0% full.</td></tr>
+
+</table>
+</body>
+</html>

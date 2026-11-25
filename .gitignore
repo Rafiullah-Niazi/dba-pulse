@@ -1,7 +1,9 @@
-venv/
-.env
-output/
-data/history.db
+data/*.db
+--pycache--/
+
+
+
+
 
 
 

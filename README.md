@@ -136,6 +136,19 @@ Run the commands from the project root. To use the AI summary later, copy `.env.
 - Day 8: Report Generator done (HTML report) and connected to the pipeline
 - Next: AI summary with the Gemini API
 
+## Database
+
+DBA-Pulse stores each analysis run in SQLite (`data/dba_pulse.db`) using
+`src/database.py` (tables: `runs`, `findings`; full CRUD). The database is
+filled automatically by `python main.py`.
+
+- Schema and operations: [docs/database.md](docs/database.md)
+- Demo of Create/Read/Update/Delete: `python scripts/db_demo.py`
+- Tests: `python -m unittest discover -s tests -p "test_*.py" -v`
+
+
+
+
 ## Tools
 
 Python, SQLite, Gemini API (free tier), Jinja2, matplotlib, ReportLab. Everything used in this project is free.
