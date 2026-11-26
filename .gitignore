@@ -1,9 +1,4 @@
-data/*.db
---pycache--/
-
-
-
-
-
-
-
+﻿data/*.db
+__pycache__/
+*.pyc
+venv/
