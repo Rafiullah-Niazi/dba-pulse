@@ -81,6 +81,16 @@ def get_findings(run_id, db_path=None):
     finally:
         conn.close()
 
+def get_run(run_id, db_path=None):
+    """Return one run as a sqlite3.Row, or None if it does not exist."""
+    conn = get_connection(db_path)
+    try:
+        return conn.execute(
+            "SELECT * FROM runs WHERE id = ?", (run_id,)).fetchone()
+    finally:
+        conn.close()
+        
+
 
 # UPDATE
 def update_run_status(run_id, new_status, db_path=None):
