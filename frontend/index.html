@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DBA-Pulse Dashboard</title>
+<style>
+body{font-family:Arial,sans-serif;margin:30px;color:#2c3e50;max-width:900px}
+h1{margin-bottom:4px}.card{border:1px solid #ccc;border-radius:6px;padding:15px;margin:15px 0}
+table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:8px;text-align:left}
+th{background:#2c3e50;color:#fff}label{display:block;margin-top:8px}
+input,select{padding:6px;width:100%;box-sizing:border-box}
+button{padding:8px 14px;margin-top:10px;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}
+#msg{padding:10px;border-radius:4px;display:none;margin:10px 0}
+.err{background:#fdecea;color:#b71c1c}.ok{background:#e8f5e9;color:#1b5e20}
+.CRITICAL{color:#c0392b;font-weight:bold}.WARNING,.HIGH{color:#d35400}.OK,.LOW{color:#27ae60}
+</style></head><body>
+<h1>DBA-Pulse Dashboard</h1>
+<p>Frontend connected to the FastAPI backend and SQLite database.</p>
+<div id="msg"></div>
+
+<div class="card"><h2>Analysis runs</h2>
+<p id="loading" style="display:none">Loading runs...</p>
+<p id="empty" style="display:none">No runs found yet. Create the first run below.</p>
+<table id="runs" style="display:none"><thead><tr><th>ID</th><th>Run time</th><th>Status</th>
+<th>Findings</th><th>Actions</th></tr></thead><tbody></tbody></table>
+<button id="refresh">Refresh</button></div>
+
+<div class="card" id="detail" style="display:none"><h2 id="dtitle"></h2>
+<table><thead><tr><th>Area</th><th>Severity</th><th>Message</th></tr></thead><tbody id="fbody"></tbody></table></div>
+
+<div class="card"><h2>Create a new run</h2>
+<label>Overall status
+<select id="status"><option>OK</option><option>WARNING</option><option>CRITICAL</option></select></label>
+<label>Finding area <input id="area" placeholder="e.g. Tablespace"></label>
+<label>Severity <select id="sev"><option>LOW</option><option>MEDIUM</option><option>HIGH</option><option>CRITICAL</option></select></label>
+<label>Message <input id="message" placeholder="e.g. USERS_DATA is 91% full"></label>
+<button id="submit">Create run</button></div>
+
+<script>
+const API = "";  // same origin as FastAPI; change to http://127.0.0.1:8000 if served elsewhere
+const $ = id => document.getElementById(id);
+function show(text, ok){const m=$("msg");m.textContent=text;m.className=ok?"ok":"err";m.style.display="block";}
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+
+async function api(path, options){
+  let res;
+  try { res = await fetch(API + path, options); }
+  catch(e){ throw new Error("Cannot reach the backend. Is the server running?"); }
+  let data = null;
+  try { data = await res.json(); } catch(e) {}
+  if(!res.ok){
+    let d = data && data.detail;
+    if(Array.isArray(d)) d = d.map(x => x.msg).join("; ");
+    throw new Error(d || ("Request failed (" + res.status + ")"));
+  }
+  return data;
+}
+
+async function loadRuns(){
+  $("loading").style.display="block"; $("runs").style.display="none"; $("empty").style.display="none";
+  try{
+    const runs = await api("/runs?limit=20");
+    const tb = $("runs").querySelector("tbody"); tb.innerHTML="";
+    if(runs.length===0){ $("empty").style.display="block"; }
+    else{
+      runs.forEach(r=>{
+        const tr=document.createElement("tr");
+        tr.innerHTML=`<td>${r.id}</td><td>${esc(r.run_time)}</td><td class="${esc(r.overall_status)}">${esc(r.overall_status)}</td>
+        <td>${r.finding_count}</td><td><button data-v="${r.id}">View</button> <button data-d="${r.id}">Delete</button></td>`;
+        tb.appendChild(tr);
+      });
+      $("runs").style.display="table";
+    }
+  }catch(e){ show(e.message,false); }
+  finally{ $("loading").style.display="none"; }
+}
+
+async function viewRun(id){
+  try{
+    const f = await api("/runs/"+id+"/findings");
+    $("dtitle").textContent="Findings of run "+id;
+    $("fbody").innerHTML = f.length ? f.map(x=>`<tr><td>${esc(x.area)}</td><td class="${esc(x.severity)}">${esc(x.severity)}</td><td>${esc(x.message)}</td></tr>`).join("")
+                                    : "<tr><td colspan=3>No findings for this run.</td></tr>";
+    $("detail").style.display="block";
+  }catch(e){ show(e.message,false); }
+}
+
+async function deleteRun(id){
+  if(!confirm("Delete run "+id+" and its findings?")) return;
+  try{ await api("/runs/"+id,{method:"DELETE"}); show("Run "+id+" deleted.",true); $("detail").style.display="none"; loadRuns(); }
+  catch(e){ show(e.message,false); }
+}
+
+$("submit").addEventListener("click", async ()=>{
+  const area=$("area").value.trim(), message=$("message").value.trim();
+  if(!area || !message){ show("Please fill in the area and the message.",false); return; }   // frontend validation
+  const btn=$("submit"); btn.disabled=true; btn.textContent="Saving...";                      // prevent duplicate submit
+  try{
+    const body={overall_status:$("status").value, findings:[{area, severity:$("sev").value, message}]};
+    const r = await api("/runs",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    show("Run created with id "+r.run_id+".",true);
+    $("area").value=""; $("message").value=""; loadRuns();
+  }catch(e){ show(e.message,false); }
+  finally{ btn.disabled=false; btn.textContent="Create run"; }
+});
+
+$("refresh").addEventListener("click", loadRuns);
+$("runs").addEventListener("click", e=>{
+  if(e.target.dataset.v) viewRun(e.target.dataset.v);
+  if(e.target.dataset.d) deleteRun(e.target.dataset.d);
+});
+loadRuns();
+</script></body></html>
+
+

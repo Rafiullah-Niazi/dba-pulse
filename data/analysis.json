@@ -1,6 +1,6 @@
 {
-  "analyzed_at": "2026-11-25T15:41:16",
-  "collected_at": "2026-11-25T15:41:16",
+  "analyzed_at": "2026-11-26T14:14:05",
+  "collected_at": "2026-11-26T14:14:05",
   "overall_status": "CRITICAL",
   "finding_counts": {
     "CRITICAL": 1,
@@ -11,7 +11,7 @@
     {
       "area": "Backups",
       "severity": "CRITICAL",
-      "message": "Last successful backup is 15 days old (2026-11-10)."
+      "message": "Last successful backup is 16 days old (2026-11-10)."
     },
     {
       "area": "Backups",

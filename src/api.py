@@ -1,4 +1,5 @@
 """DBA-Pulse backend API (FastAPI). All SQL stays in database.py."""
+from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from typing import List, Literal, Optional
 
@@ -98,3 +99,4 @@ def latest_report():
         raise HTTPException(status_code=404, detail="Report not generated yet")
     return FileResponse(REPORT_PATH, media_type="text/html") 
 
+app.mount("/app", StaticFiles(directory="frontend", html=True), name="frontend")
